@@ -1,6 +1,13 @@
 # @ngx-core/common
 Common Angular 2+ features that are used for example in ngx-form/element
 
+[![npm version](https://badge.fury.io/js/%40ngx-core%2Fcommon.svg)](https://badge.fury.io/js/%40ngx-core%2Fcommon)
+[![GitHub issues](https://img.shields.io/github/issues/ngx-core/common.svg)](https://github.com/ngx-core/common/issues)
+[![Known Vulnerabilities](https://snyk.io/test/npm/@ngx-core/common/badge.svg)](https://snyk.io/test/npm/@ngx-core/common)
+[![GitHub forks](https://img.shields.io/github/forks/ngx-core/common.svg)](https://github.com/ngx-core/common/network)
+[![GitHub stars](https://img.shields.io/github/stars/ngx-core/common.svg)](https://github.com/ngx-core/common/stargazers)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/ngx-core/common/master/LICENSE)
+
 ## Table of contents
 * [Installation](#installation)
 * [Usage](#usage)

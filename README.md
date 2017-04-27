@@ -1,5 +1,7 @@
 # @ngx-core/common
 
+Some Angular 2+ features used in other ngx libraries
+
 ## Table of contents
 * [Installation](#installation)
 * [Usage](#usage)

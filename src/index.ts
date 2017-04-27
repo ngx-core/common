@@ -5,4 +5,4 @@ import { component } from './ngx-core-common.type';
 export {
   component,
   DynamicComponentClass
-}
+};

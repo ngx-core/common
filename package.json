@@ -63,9 +63,9 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ngx-core/common.git"
+    "url": "git+https://github.com/ngx-form/interface.git"
   },
   "bugs": {
-    "url": "https://github.com/ngx-core/common/issues"
+    "url": "https://github.com/ngx-form/interface/issues"
   }
 }

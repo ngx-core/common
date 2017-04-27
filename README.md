@@ -1,5 +1,4 @@
 # @ngx-core/common
-Common Angular 2+ features that are used for example in @ngx-form/element
 
 ## Table of contents
 * [Installation](#installation)

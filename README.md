@@ -1,5 +1,5 @@
 # @ngx-core/common
-Common Angular 2+ features that are used for example in ngx-form/element
+Common Angular 2+ features that are used for example in @ngx-form/element
 
 [![npm version](https://badge.fury.io/js/%40ngx-core%2Fcommon.svg)](https://badge.fury.io/js/%40ngx-core%2Fcommon)
 [![GitHub issues](https://img.shields.io/github/issues/ngx-core/common.svg)](https://github.com/ngx-core/common/issues)

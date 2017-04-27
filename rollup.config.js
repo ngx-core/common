@@ -9,7 +9,7 @@ export default {
   exports: 'named',
   sourceMap: false,
   format: 'umd',
-  moduleName: '@ngx-core/common',
+  moduleName: '@ngx-form/interface',
   onwarn,
   plugins: [
       commonjs({

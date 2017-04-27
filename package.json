@@ -1,9 +1,9 @@
 {
-  "name": "@ngx-core/common",
+  "name": "@ngx-form/interface",
   "version": "0.1.0",
-  "description": "Common Angular 2+ features that are used for example in ngx-form/element",
-  "author": "Ścibor Rudnicki <scibor.rudnicki@wwwdev.io> (http://ngx-core.wwwwdev.io)",
-  "homepage": "https://github.com/ngx-form/element#readme",
+  "description": "All typescript interfaces used in @ngx-form",
+  "author": "Ścibor Rudnicki <scibor.rudnicki@wwwdev.io> (http://ngx-form.wwwwdev.io)",
+  "homepage": "https://github.com/ngx-form/interface#readme",
   "main": "dist/bundle.umd.js",
   "module": "dist/index.js",
   "jsnext:main": "dist/index.js",
@@ -23,12 +23,14 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@angular/core": "^4.0.0"
+    "@ngx-core/common": "^0.1.1",
+    "@ngx-form/type": "^0.1.1"
   },
   "devDependencies": {
     "@angular/common": "^4.0.0",
     "@angular/compiler": "^4.0.0",
     "@angular/compiler-cli": "^4.0.1",
+    "@angular/core": "^4.0.0",
     "@angular/platform-browser": "^4.0.0",
     "@angular/platform-browser-dynamic": "^4.0.0",
     "@types/jasmine": "^2.5.46",
@@ -64,9 +66,9 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ngx-core/common.git"
+    "url": "git+https://github.com/ngx-form/interface.git"
   },
   "bugs": {
-    "url": "https://github.com/ngx-core/common/issues"
+    "url": "https://github.com/ngx-form/interface/issues"
   }
 }

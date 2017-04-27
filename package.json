@@ -1,6 +1,6 @@
 {
   "name": "@ngx-core/common",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Some Angular 2+ features used in other ngx libraries",
   "author": "Ścibor Rudnicki <scibor.rudnicki@wwwdev.io> (http://ngx-core.wwwwdev.io)",
   "homepage": "https://github.com/ngx-core/common#readme",
@@ -22,8 +22,7 @@
     "test": "./node_modules/karma/bin/karma start karma.conf.js"
   },
   "license": "MIT",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "@angular/common": "^4.0.0",
     "@angular/compiler": "^4.0.0",

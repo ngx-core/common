@@ -18,6 +18,9 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       'test/index.ts',
+      'test/test.component.ts',
+      'test/dynamic.component.ts',
+      'test/test.module.ts',
       'src/*.spec.ts'
     ],
 
@@ -41,6 +44,9 @@ module.exports = function(config) {
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
       'test/index.ts': ['webpack'],
+      'test/test.component.ts': ['webpack'],
+      'test/dynamic.component.ts': ['webpack'],
+      'test/test.module.ts': ['webpack'],
       'src/*.spec.ts': ['webpack']
     },
 

@@ -20,12 +20,105 @@ npm install @ngx-core/common --save
 ```
 
 ## Usage
-```typescript
-import { Component } from '@angular/core'; 
-import { DynamicComponentClass } from '@ngx-core/common'; 
 
-@Component({...})
-export class ExampleComponent extends DynamicComponentClass { }
+Step 1. Create component you want to dynamically create 
+```typescript
+// dynamic.component.ts
+
+import { Component, ComponentFactoryResolver, EventEmitter, Output } from '@angular/core';
+
+@Component({
+  selector: 'dynamic-component',
+  template: 'Dynamic component created succesfully'
+})
+export class DynamicComponent {
+  key = 'defined';
+  public model = {
+    defined: true
+  };
+
+  @Output() event: EventEmitter<any> = new EventEmitter();
+
+  emit() {
+    this.event.emit('event');
+  }
+}
+
+```
+
+Step 2. Create component that will use DynamicComponentClass and create new DynamicComponent
+```typescript
+// default.component.ts
+
+import { Component, ComponentFactoryResolver } from '@angular/core';
+
+import { DynamicComponentClass } from '@ngx-core/common';
+import { DynamicComponent } from './dynamic.component'
+
+@Component({
+  selector: 'default-component',
+  template: '<div #container></div>' // create #container variable
+})
+export class DefaultComponent extends DynamicComponentClass {
+  public model = {};
+  public key = 'notdefined';
+
+  constructor(componentFactoryResolver: ComponentFactoryResolver) {
+    super(componentFactoryResolver);
+
+    this.create(DynamicComponent);
+    this.key = 'defined';
+    this.model = {
+      defined: true
+    };
+
+    this.set('key'); // set component instance key variable value from this class to 'defined'
+    this.set(['model','key']); // set component instance key variables value from this class
+
+    // subscribe to EventEmitter - event Output
+    this.subscribe('event', (result) => {
+      console.log(result);
+    });
+  }
+  // get private variable class _component with is newely created component
+  public component() {
+    return this._variable('_component');
+  }
+
+  // create component
+  public create(component: any): void {
+    this._create(component); // protected method from DynamicComponentClass
+  }
+  public destroy(): void {
+    this._destroy(); // protected method from DynamicComponentClass
+  }
+  public set(key: string | Array<string>) {
+    this._set(key); // protected method from DynamicComponentClass
+  }
+  public subscribe(key: string, callback?: Function): void {
+    this._subscribe(key, callback); // protected method from DynamicComponentClass
+  }
+}
+
+```
+
+Step 3. Create module
+```typescript
+// primary.module.ts
+
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+import { DynamicComponent } from './dynamic.component';
+import { DefaultComponent } from './default.component';
+
+@NgModule({
+  imports: [CommonModule],
+  declarations: [DynamicComponent, DefaultComponent],
+  entryComponents: [DynamicComponent] // <--- set DynamicComponent in entryComponents
+})
+export class PrimaryModule { }
+
 ```
 
 ## Versioning

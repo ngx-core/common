@@ -1,7 +1,6 @@
 import {
   ComponentFactory,
   ComponentFactoryResolver,
-  Injectable,
   ViewChild,
   ViewContainerRef
 } from '@angular/core';
@@ -16,13 +15,19 @@ import { component } from './ngx-core-common.type';
 */
 export abstract class DynamicComponentClass {
 
-  private _component: any;
+  // dynamic component
+  private _component: any = null;
   protected componentFactoryResolver: ComponentFactoryResolver;
 
+  // container where created component will be put in
   @ViewChild('container', { read: ViewContainerRef }) protected container: any;
 
   constructor(componentFactoryResolver: ComponentFactoryResolver) {
     this.componentFactoryResolver = componentFactoryResolver;
+  }
+
+  protected _variable(key: string): any {
+    return this[key];
   }
 
   // create component in container
@@ -34,11 +39,12 @@ export abstract class DynamicComponentClass {
   }
 
   // destroy component
-  protected _destroy(): void {
+  protected _destroy(): null {
     if (this._component) {
       this._component.destroy();
       this._component = null;
     }
+    return this._component;
   }
 
   // resolve component which should be added to entryComponents
@@ -73,8 +79,10 @@ export abstract class DynamicComponentClass {
    * @param callback function initiated in subscribe
    */
   protected _subscribe(key: string, callback?: Function): this {
+    // if created component has got property to subscribe
     if (this._component.instance.hasOwnProperty(key)) {
       this._component.instance[key].subscribe((result: any) => {
+        // callback
         if (callback) {
           callback(result);
         }

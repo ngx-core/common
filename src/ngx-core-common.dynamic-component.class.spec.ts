@@ -76,10 +76,25 @@ describe('TestComponent', () => {
   }));
   it('_component instance subscribe to event EventEmitter', async(() => {
     comp.create(DynamicComponent);
-    comp.subscribe('event', (result: any) => {
-      expect(result).toBe('event');
-    })
+    comp.subscribe('event',
+      (generatorOrNext: any) => {
+        expect(generatorOrNext).toBe('event');
+      },
+      (error: any) => { },
+      (complete: any) => { }
+    );
     comp.component().instance.emit();
+  }));
+  it('_component instance subscribe to event EventEmitter and emit complete', async(() => {
+    comp.create(DynamicComponent);
+    comp.subscribe('event',
+      (result: any) => { },
+      (error: any) => { },
+      (complete: any) => {
+        console.info(`complete`);
+      }
+    );
+    comp.component().instance.emitComplete();
   }));
   it('this._component should be destroyed', async(() => {
     comp.create(DynamicComponent);

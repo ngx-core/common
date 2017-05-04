@@ -27,7 +27,11 @@ export abstract class DynamicComponentClass {
   }
 
   protected _variable(key: string): any {
-    return this[key];
+    if (key.length > 0) {
+      return this[key];
+    } else {
+      throw new Error(`DynamicComponentClass._variable(key) : key length is 0`);
+    }
   }
 
   // create component in container
@@ -38,7 +42,7 @@ export abstract class DynamicComponentClass {
     return this;
   }
 
-  // destroy component
+  // destroy component if exist
   protected _destroy(): null {
     if (this._component) {
       this._component.destroy();
@@ -76,17 +80,14 @@ export abstract class DynamicComponentClass {
   /**
    * Subscribe to created component instance @Output
    * @param key instance variable of created component
-   * @param callback function initiated in subscribe
+   * @param args initiated in subscribe
    */
-  protected _subscribe(key: string, callback?: Function): this {
+  protected _subscribe(key: string, ...args: any[]): this {
     // if created component has got property to subscribe
     if (this._component.instance.hasOwnProperty(key)) {
-      this._component.instance[key].subscribe((result: any) => {
-        // callback
-        if (callback) {
-          callback(result);
-        }
-      });
+      this._component.instance[key].subscribe(...args);
+    } else {
+      throw new Error(`this._component.instance does not have property ${key}`);
     }
     return this;
   }

@@ -22,7 +22,7 @@ npm install @ngx-core/common --save
 ## Usage
 
 * [DynamicComponentClass](https://github.com/ngx-core/common/wiki/DynamicComponentClass)
-
+* [Type component](https://github.com/ngx-core/common/wiki/Type-component)
 
 ## Versioning
 Semantic Versioning 2.0.0 http://semver.org/

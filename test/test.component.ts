@@ -24,7 +24,7 @@ export class TestComponent extends DynamicComponentClass {
   public set(key: string | Array<string>) {
     this._set(key);
   }
-  public subscribe(key: string, callback?: Function): void {
-    this._subscribe(key, callback);
+  public subscribe(key: string, callback?: any, error?: any, complete?: any): void {
+    this._subscribe(key, callback, error, complete);
   }
 }

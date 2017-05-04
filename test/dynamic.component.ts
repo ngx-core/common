@@ -20,4 +20,14 @@ export class DynamicComponent {
   emit() {
     this.event.emit('event');
   }
+
+  emitComplete() {
+    this.event.complete();
+  }
+
+  emitError() {
+    this.event.error({
+      error: new Error('event error')
+    });
+  }
 }

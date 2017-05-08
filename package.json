@@ -1,6 +1,6 @@
 {
   "name": "@ngx-core/common",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Some Angular 2+ features used in other ngx libraries",
   "author": "Ścibor Rudnicki <scibor.rudnicki@wwwdev.io> (http://ngx-core.wwwwdev.io)",
   "homepage": "https://github.com/ngx-core/common#readme",

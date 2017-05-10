@@ -39,7 +39,7 @@ describe('TestComponent', () => {
   it('should have div', async(() => {
     expect(nativeElement.querySelector('div')).toBeTruthy();
   }));
-  it('should have _component null', async(() => {
+  it('should have __component null', async(() => {
     expect(comp.component()).toBeNull();
   }));
   it('this._component should be null', async(() => {

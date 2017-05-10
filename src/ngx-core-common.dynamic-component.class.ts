@@ -7,88 +7,135 @@ import {
 
 import { component } from './ngx-core-common.type';
 
-/*
-  DynamicComponentClass
-  ---
-  Angular 2+ abstract class extend for component with ability to dynamically create component that is available in entryComponents
-  to a specific container and destroy it. After create you can _set variables to its instance.
-*/
+/**
+ * Angular 2+ abstract class extend for component with ability to dynamically create component that is available in entryComponents
+ * to a specific container and destroy it. After create you can set properties instance.
+ * @export
+ * @abstract
+ * @class DynamicComponentClass
+ */
 export abstract class DynamicComponentClass {
 
-  // dynamic component
-  private _component: any = null;
-  protected componentFactoryResolver: ComponentFactoryResolver;
+  /**
+   * Newly created dynamic component
+   * @private
+   * @type {*}
+   * @memberof DynamicComponentClass
+   */
+  private __component: any = null;
 
-  // container where created component will be put in
-  @ViewChild('container', { read: ViewContainerRef }) protected container: any;
+  /**
+   * Resolver from entryComponents
+   * @type {ComponentFactoryResolver}
+   * @memberof DynamicComponentClass
+   */
+  public componentFactoryResolver: ComponentFactoryResolver;
 
+  /**
+   * Container property where Dynamic Component will be put in
+   * @protected
+   * @type {*}
+   * @memberof DynamicComponentClass
+   */
+  @ViewChild('container', { read: ViewContainerRef }) public container: any;
+
+  /**
+   * Creates an instance of DynamicComponentClass.
+   * @param {ComponentFactoryResolver} componentFactoryResolver
+   * @memberof DynamicComponentClass
+   */
   constructor(componentFactoryResolver: ComponentFactoryResolver) {
     this.componentFactoryResolver = componentFactoryResolver;
   }
 
-  protected _variable(key: string): any {
-    if (key.length > 0) {
-      return this[key];
-    } else {
-      throw new Error(`DynamicComponentClass._variable(key) : key length is 0`);
-    }
-  }
-
-  // create component in container
-  protected _create(component: component): this {
+  /**
+   * Create in html `#container` resolved component and set to `__component` property
+   * @protected
+   * @param {component} component
+   * @returns {void}
+   * @memberof DynamicComponentClass
+   */
+  protected __create(component: component): void {
     if (this.container && component) {
-      this._component = this.container.createComponent(this.resolveComponent(component));
+      this.__component = this.container.createComponent(this.__resolve(component));
     }
-    return this;
   }
 
-  // destroy component if exist
-  protected _destroy(): null {
-    if (this._component) {
-      this._component.destroy();
-      this._component = null;
+  /**
+   * If property `component` is defined use destory method on it and set as null
+   * @protected
+   * @returns {null}
+   * @memberof DynamicComponentClass
+   */
+  protected __destroy(): null {
+    if (this.__component) {
+      this.__component.destroy();
+      this.__component = null;
     }
-    return this._component;
+    return this.__component;
   }
 
-  // resolve component which should be added to entryComponents
-  private resolveComponent(component: component): any {
+  /**
+   * Return property, either private
+   * @protected
+   * @param {string} property - property name
+   * @returns {*}
+   * @memberof DynamicComponentClass
+   */
+  protected __get(property: string): any {
+    if (property.length > 0) {
+      return this[property];
+    } else {
+      throw new Error(`DynamicComponentClass.__get(property ${property}) : property length is 0`);
+    }
+  }
+
+  /**
+   * Resolve component from entryComponents
+   * @private
+   * @param {component} component - Angular component
+   * @returns {*}
+   * @memberof DynamicComponentClass
+   */
+  private __resolve(component: component): any {
     if (component) {
       return this.componentFactoryResolver.resolveComponentFactory(component);
     }
   }
 
   /**
-   * set dynamic component instance variables values from extended class with specific keys
-   * @param key string or array of strings
+   * Set respectively properties values in property `__component` instance with values from extended class
+   * @protected
+   * @param {(string | Array<string>)} key - property name as string or properties as array of string
+   * @memberof DynamicComponentClass
    */
-  protected _set(key: string | Array<string>): this {
-    if (this._component) {
-      if (key instanceof Array) {
-        key.forEach((value, index) => {
+  protected __set(property: string | Array<string>): void {
+    if (this.__component) {
+      if (property instanceof Array) {
+        property.forEach((value, index) => {
           if (value) {
-            this._component.instance[value] = this[value];
+            this.__component.instance[value] = this[value];
           }
         });
-      } else if (key) {
-        this._component.instance[key] = this[key];
+      } else if (property) {
+        this.__component.instance[property] = this[property];
       }
     }
-    return this;
   }
 
   /**
-   * Subscribe to created component instance @Output
-   * @param key instance variable of created component
-   * @param args initiated in subscribe
+   * Subscribe to specific @Output property in instance of `this` property `__component`
+   * @protected
+   * @param {string} property - property `component` instance property
+   * @param {...any[]} args - args functions like complete, error
+   * @memberof DynamicComponentClass
    */
-  protected _subscribe(key: string, ...args: any[]): this {
+  protected __subscribe(property: string, ...args: any[]): void {
     // if created component has got property to subscribe
-    if (this._component.instance.hasOwnProperty(key)) {
-      this._component.instance[key].subscribe(...args);
+    if (this.__component.instance.hasOwnProperty(property)) {
+      this.__component.instance[property].subscribe(...args);
     } else {
-      throw new Error(`this._component.instance does not have property ${key}`);
+      throw new Error(`this.component.instance does not have property ${property}`);
     }
-    return this;
   }
 }

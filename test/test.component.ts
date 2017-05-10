@@ -13,18 +13,18 @@ export class TestComponent extends DynamicComponentClass {
     super(componentFactoryResolver);
   }
   public component() {
-    return this.__get('__component');
+    return this._variable('_component');
   }
   public create(component: any): void {
-    this.__create(component);
+    this._create(component);
   }
   public destroy(): void {
-    this.__destroy();
+    this._destroy();
   }
-  public set(property: string | Array<string>) {
-    this.__set(property);
+  public set(key: string | Array<string>) {
+    this._set(key);
   }
-  public subscribe(property: string, callback?: any, error?: any, complete?: any): void {
-    this.__subscribe(property, callback, error, complete);
+  public subscribe(key: string, callback?: any, error?: any, complete?: any): void {
+    this._subscribe(key, callback, error, complete);
   }
 }

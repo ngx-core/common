@@ -12,7 +12,9 @@ export default {
   moduleName: '@ngx-core/common',
   onwarn,
   plugins: [
-      commonjs({ include: 'node_modules/rxjs/**' }),
+      commonjs({
+          include: 'node_modules/rxjs/**',
+      }),
       nodeResolve({ jsnext: true, module: true }),
       uglify()  
   ],

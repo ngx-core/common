@@ -1,7 +1,11 @@
 // Karma configuration
 // Generated on Mon Mar 20 2017 15:06:42 GMT+0100 (CET)
 
-const webpackConfig = require('./webpack.test.config.js');
+const angular = require('rollup-plugin-angular');
+const commonjs = require('rollup-plugin-commonjs');
+const html = require('rollup-plugin-html');
+const nodeResolve = require('rollup-plugin-node-resolve');
+const typescript = require('rollup-plugin-typescript');
 
 module.exports = function(config) {
   config.set({
@@ -9,25 +13,21 @@ module.exports = function(config) {
     // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: '',
 
-
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
     frameworks: ['jasmine'],
 
-
     // list of files / patterns to load in the browser
     files: [
       'test/index.ts',
-      'test/test.component.ts',
-      'test/dynamic.component.ts',
-      'test/test.module.ts',
+      'test/*.ts',
       'src/*.spec.ts'
     ],
 
     plugins: [
-      require('karma-webpack'),
       require('karma-coverage'),
       require('karma-chrome-launcher'),
+      require('karma-rollup-plugin'),
       require('karma-jasmine')
     ],    
 
@@ -35,19 +35,58 @@ module.exports = function(config) {
     exclude: [
     ],
 
-    webpack: webpackConfig,
-    webpackServer: {
-      noInfo: true
-    },
-
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      'test/index.ts': ['webpack'],
-      'test/test.component.ts': ['webpack'],
-      'test/dynamic.component.ts': ['webpack'],
-      'test/test.module.ts': ['webpack'],
-      'src/*.spec.ts': ['webpack']
+      'test/index.ts': ['rollup'],
+      'test/*.ts': ['rollup'],
+      'src/*.spec.ts': ['rollup']
+    },
+
+    rollupPreprocessor: {
+      context: 'this',
+      // will help to prevent conflicts between different tests entries
+      moduleName: '@ngx-core/common',
+      format: 'iife',
+      sourceMap: 'inline',
+      // rollup settings. See Rollup documentation
+      plugins: [
+        angular(),
+        commonjs({
+          namedExports: {
+            'node_modules/rxjs/**': ['named']
+          }
+        }),
+        html({
+          include: '**/*.html',
+          htmlMinifierOptions: {
+            caseSensitive: true // need to do not lower letter
+          }
+        }),
+        nodeResolve({
+          // use "es2015" field for ES2015 modules with ES2015 code,
+          // if possible
+          es2015: true, // Default: false
+
+          // use "module" field for ES2015 modules with ES5 code,
+          // if possible
+          module: true, // Default: true
+
+          // use "jsnext:main" if possible
+          // – see https://github.com/rollup/rollup/wiki/jsnext:main
+          jsnext: true,  // Default: false
+
+          // use "main" field or index.js, even if it's not an ES6 module
+          // (needs to be converted from CommonJS to ES6
+          // – see https://github.com/rollup/rollup-plugin-commonjs
+          main: true,  // Default: true
+
+          extensions: [ '.js', '.json', 'html']
+        }),
+        typescript({
+          typescript: require('./node_modules/typescript')
+        }),
+      ],
     },
 
     // test results reporter to use

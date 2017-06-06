@@ -1,7 +1,7 @@
 // Karma configuration
 // Generated on Mon Mar 20 2017 15:06:42 GMT+0100 (CET)
 
-const angular = require('rollup-plugin-angular');
+// const angular = require('rollup-plugin-angular');
 const commonjs = require('rollup-plugin-commonjs');
 const html = require('rollup-plugin-html');
 const nodeResolve = require('rollup-plugin-node-resolve');
@@ -51,7 +51,7 @@ module.exports = function(config) {
       sourceMap: 'inline',
       // rollup settings. See Rollup documentation
       plugins: [
-        angular(),
+        // angular(),
         commonjs({
           namedExports: {
             'node_modules/rxjs/**': ['named']

@@ -49,6 +49,22 @@ export abstract class DynamicComponentClass {
   }
 
   /**
+   * __assign
+   * Assign property to `__component` instance
+   * @template T
+   * @param {string} key
+   * @param {T} value
+   * @memberof DynamicComponentClass
+   */
+  __assign<T>(key: string, value: T): void {
+    if (this.__component !== null) {
+      Object.assign(this.__component.instance, {
+        [key]: value
+      });
+    }
+  }
+
+  /**
    * Create in html `#container` resolved component and set to `__component` property
    * @protected
    * @param {component} component

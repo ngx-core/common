@@ -40,7 +40,6 @@ export abstract class DynamicComponentClass {
   @ViewChild('container', { read: ViewContainerRef }) public container: any;
 
   /**
-   * Creates an instance of DynamicComponentClass.
    * @param {ComponentFactoryResolver} componentFactoryResolver
    * @memberof DynamicComponentClass
    */
@@ -49,14 +48,14 @@ export abstract class DynamicComponentClass {
   }
 
   /**
-   * __assign
-   * Assign property to `__component` instance
+   * Assign property to `__component` instance if not null
+   * @protected
    * @template T
    * @param {string} key
    * @param {T} value
    * @memberof DynamicComponentClass
    */
-  __assign<T>(key: string, value: T): void {
+  protected __assign<T>(key: string, value: T): void {
     if (this.__component !== null) {
       Object.assign(this.__component.instance, {
         [key]: value
